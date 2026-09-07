@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { TouchableOpacity, ScrollView } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native";
 import SafeAreaWrapper from "@/components/core/SafeAreaWrapper";
+import RssItemCard, { ArticleItem } from "@/components/rss/RssItemCard";
 import { Box } from "@/gluestack/box";
+import { Card } from "@/gluestack/card";
 import { Heading } from "@/gluestack/heading";
 import { Text } from "@/gluestack/text";
-import { Card } from "@/gluestack/card";
 import { VStack } from "@/gluestack/vstack";
-import { Bookmark } from "lucide-react-native";
 import { api } from "@/services/api";
-import RssItemCard, { ArticleItem } from "@/components/rss/RssItemCard";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Bookmark } from "lucide-react-native";
+import React, { useState } from "react";
+import { ScrollView, TouchableOpacity } from "react-native";
 
 interface RouteParams {
   folderId: string;
