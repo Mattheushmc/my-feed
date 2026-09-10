@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity, ScrollView } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native";
 import SafeAreaWrapper from "@/components/core/SafeAreaWrapper";
 import { Box } from "@/gluestack/box";
 import { Heading } from "@/gluestack/heading";
@@ -12,16 +11,27 @@ import { Center } from "@/components/ui/center";
 import { Rss } from "lucide-react-native";
 import { api } from "@/services/api";
 import RssItemCard, { ArticleItem } from "@/components/rss/RssItemCard";
-
-interface RouteParams {
-  title: string;
-  urls: string[];
-}
+import { useRoute, useRouter } from "expo-router";
 
 export default function ListContentPage() {
-  const route = useRoute();
-  const navigation = useNavigation<any>();
-  const { title, urls } = (route.params as RouteParams) || { title: "Lista", urls: [] };
+  const router = useRouter()
+  const route = useRoute()
+
+  const params = (route.params as any) || {};
+  const title = params.title || "Lista";
+
+  let urls: string[] = [];
+  if (params.urls) {
+    if (typeof params.urls === "string") {
+      try {
+        urls = JSON.parse(params.urls);
+      } catch (e) {
+        console.error("Erro ao fazer parse das urls:", e);
+      }
+    } else if (Array.isArray(params.urls)) {
+      urls = params.urls;
+    }
+  }
 
   const [items, setItems] = useState<ArticleItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +61,7 @@ export default function ListContentPage() {
       <Box className="flex-1 px-6 pt-4">
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate("Lists"))}
+          onPress={() => (router.canGoBack() ? router.back() : router.navigate("/lists"))}
           className="mb-4 py-2 self-start"
         >
           <Text className="text-foreground font-medium text-base">← Voltar</Text>

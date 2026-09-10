@@ -1,9 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import { Button, ButtonText } from "@/gluestack/button";
+import { useRouter } from "expo-router";
 export default function BackButton({title} : {title: string}) {
-    const navigation = useNavigation()
+    const router = useRouter();
     return (
-        <Button onPress={navigation.goBack}>
+        <Button onPress={() => router.back()}>
             <ButtonText>{title}</ButtonText>
         </Button>
     )

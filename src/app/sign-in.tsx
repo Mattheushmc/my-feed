@@ -2,7 +2,7 @@ import React from "react";
 import AuthComponent from "@/components/core/auth/AuthComponent";
 import { LogIn } from "lucide-react-native";
 
-export default function LoginPage() {
+export default function SignInPage() {
   return (
     <AuthComponent
       mode="login"
@@ -12,7 +12,7 @@ export default function LoginPage() {
       subCard="Faça o login para usar o app"
       promptText="Não possui uma conta? "
       linkText="Cadastrar"
-      href="Register"
+      href="sign-up"
     />
   );
 }

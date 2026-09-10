@@ -2,7 +2,7 @@ import React from "react";
 import AuthComponent from "@/components/core/auth/AuthComponent";
 import { UserPlus } from "lucide-react-native";
 
-export default function RegisterPage() {
+export default function SignUpPage() {
   return (
     <AuthComponent
       mode="register"
@@ -12,7 +12,7 @@ export default function RegisterPage() {
       subCard="Crie o perfil para usar o app"
       promptText="Já possui uma conta? "
       linkText="Entrar"
-      href="Login"
+      href="sign-in"
     />
   );
 }

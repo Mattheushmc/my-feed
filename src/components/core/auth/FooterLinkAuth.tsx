@@ -2,8 +2,8 @@ import { Text } from "@/gluestack/text";
 import { Box } from "@/gluestack/box";
 import { Center } from "@/gluestack/center";
 import { Link, LinkText } from "@/gluestack/link";
+import { useRouter } from "expo-router";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 
 interface FooterLinkAuthProps {
   promptText: string;
@@ -12,11 +12,11 @@ interface FooterLinkAuthProps {
 }
 
 export default function FooterLinkAuth({ promptText, linkText, href }: FooterLinkAuthProps) {
-  const navigation = useNavigation();
 
+  const router = useRouter()
   const handlePress = () => {
-    if (navigation.canGoBack()) {
-      navigation.goBack();
+    if (router.canGoBack()) {
+      navigation.back();
     } else {
       navigation.navigate(href);
     }

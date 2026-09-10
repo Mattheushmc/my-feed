@@ -6,22 +6,31 @@ import { Heading } from "@/gluestack/heading";
 import { Text } from "@/gluestack/text";
 import { VStack } from "@/gluestack/vstack";
 import { api } from "@/services/api";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { Bookmark } from "lucide-react-native";
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
-
-interface RouteParams {
-  folderId: string;
-  title: string;
-  items: ArticleItem[];
-}
+import { useRouter, useRoute } from "expo-router";
 
 export default function BookmarkFolderContentPage() {
+  const router = useRouter();
   const route = useRoute();
-  const navigation = useNavigation<any>();
-  const { folderId, title, items: initialItems } =
-    (route.params as RouteParams) || { folderId: "", title: "Pasta", items: [] };
+
+  const params = (route.params as any) || {};
+  const folderId = params.folderId || "";
+  const title = params.title || "Pasta";
+
+  let initialItems: ArticleItem[] = [];
+  if (params.items) {
+    if (typeof params.items === "string") {
+      try {
+        initialItems = JSON.parse(params.items);
+      } catch (e) {
+        console.error("Erro ao fazer parse dos itens:", e);
+      }
+    } else if (Array.isArray(params.items)) {
+      initialItems = params.items;
+    }
+  }
 
   const [items, setItems] = useState<ArticleItem[]>(initialItems);
 
@@ -41,7 +50,7 @@ export default function BookmarkFolderContentPage() {
       <Box className="flex-1 px-6 pt-4">
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate("Bookmarks"))}
+          onPress={() => (router.canGoBack() ? router.back() : router.navigate("/bookmarks"))}
           className="mb-4 py-2 self-start"
         >
           <Text className="text-foreground font-medium text-base">← Voltar</Text>
