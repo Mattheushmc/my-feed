@@ -11,6 +11,7 @@ export default function RootLayout() {
                 <Stack.Screen name='(web)/bookmarks' options={{ headerShown: false }} />
                 <Stack.Screen name='(web)/folder' options={{ headerShown: false }} />
                 <Stack.Screen name='(web)/lists' options={{ headerShown: false }} />
+                <Stack.Screen name='about' options={{ headerShown: false}}/>
             </Stack>
         ) : (
             <NativeTabs>
@@ -27,6 +28,11 @@ export default function RootLayout() {
                 <Icon/>
                 <Label>Settings</Label>
                 </NativeTabs.Trigger>
+                <NativeTabs.Trigger name='about'>
+                <Icon/>
+                <Label>Sobre</Label>
+                </NativeTabs.Trigger>
+
             </NativeTabs>
 
         )
